@@ -14,10 +14,10 @@ import preprocessor as p
 
 
 # Variables that contains the user credentials to access Twitter API
-consumer_key = 'AbXM3zXaI8SrgtR6fCzPXNHeG'
-consumer_secret = '32IiqGHOKmS06mlcXNHb6g0tXYZVZ863AwMQRNFug46h3BIGkQ'
-access_token = '2464951318-PIUzYsl1l3NbhnV6apIfRg1n7AdSAykPZl4CcTj'
-access_token_secret ='Ew5Z0kPB4oYvQ2XJOMG8H2SiuIZ5DAq9jgSZjeJJ8hZQr'
+consumer_key = ''
+consumer_secret = ''
+access_token = ''
+access_token_secret =''
 
 # This handles Twitter authetification and the connection to Twitter Streaming API
 auth = OAuthHandler(consumer_key, consumer_secret)
