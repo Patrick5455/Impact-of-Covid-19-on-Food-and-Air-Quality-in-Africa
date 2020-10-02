@@ -29,7 +29,7 @@ class dataAcq():
         if cols is not None:
             self.cols = cols
         else:
-            self.cols = ['id', 'created_at', 'source', 'original_text', 'clean_text', 'sentiment',
+            self.cols = ['id', 'created_at', 'source', 'original_text', 'clean_text',
                          'polarity', 'subjectivity', 'lang', 'favorite_count', 'retweet_count', 'original_author',
                          'possibly_sensitive', 'hashtags', 'user_mentions', 'place', 'place_coord_boundaries']
 
@@ -100,74 +100,76 @@ class dataAcq():
 
         return ' '.join(filteredTweet)
 
-    def getTweets(self, keyword, geocode, startDate, endDate):
-        print("Hello")
+    def getTweets(self, keyword, geocode, startDate, endDate, csvfile):
+
         df = pd.DataFrame(columns=self.cols)
+        if csvfile is not None:
+            # If the file exists, then read the existing data from the CSV file.
+            if os.path.exists(csvfile):
+                df = pd.read_csv(csvfile, header=0)
 
-        for page in Cursor(self.api.search, q=keyword, geocode=geocode, lang="en", since_id=startDate, until=endDate,
-                           count=50, include_rts=False).pages():
-            print("World")
-            for status in page:
-                logger.info("Working on new Tweet :)")
+        for status in Cursor(self.api.search, q=keyword, geocode=geocode, lang="en", since_id=startDate,
+                             tweet_mode="extended", include_rts=False).items(200):
+            logger.info("Working on new Tweet :)")
 
-                newEntry = []
-                status = status._json
+            newEntry = []
+            status = status._json
 
-                # if this tweet is a retweet update retweet count
-                if status['created_at'] in df['created_at'].values:
-                    i = df.loc[df['created_at'] == status['created_at']].index[0]
+            # if this tweet is a retweet update retweet count
+            if status['created_at'] in df['created_at'].values:
+                i = df.loc[df['created_at'] == status['created_at']].index[0]
 
-                    cond1 = status['favorite_count'] != df.at[i, 'favorite_count']
-                    cond2 = status['retweet_count'] != df.at[i, 'retweet_count']
-                    if cond1 or cond2:
-                        df.at[i, 'favorite_count'] = status['favorite_count']
-                        df.at[i, 'retweet_count'] = status['retweet_count']
+                cond1 = status['favorite_count'] != df.at[i, 'favorite_count']
+                cond2 = status['retweet_count'] != df.at[i, 'retweet_count']
+                if cond1 or cond2:
+                    df.at[i, 'favorite_count'] = status['favorite_count']
+                    df.at[i, 'retweet_count'] = status['retweet_count']
 
-                    continue
+                continue
 
-                # clean the tweet
-                cleanText = self.cleanTweets(status['text'])
+            # clean the tweet
+            cleanText = self.cleanTweets(status['text'])
 
-                # Calculate the Sentiment
-                blob = TextBlob(cleanText)
-                polarity = blob.sentiment.polarity
-                subjectivity = blob.sentiment.subjectivity
+            # Calculate the Sentiment
+            blob = TextBlob(cleanText)
+            polarity = blob.sentiment.polarity
+            subjectivity = blob.sentiment.subjectivity
 
-                newEntry += [status['id'], status['created_at'], status['source'], status['text'], cleanText,
-                             polarity, subjectivity, status['lang'], status['favorite_count'], status['retweet_count']]
+            newEntry += [status['id'], status['created_at'], status['source'], status['text'], cleanText,
+                         polarity, subjectivity, status['lang'], status['favorite_count'], status['retweet_count']]
 
-                newEntry.append(status['user']['screen_name'])
+            newEntry.append(status['user']['screen_name'])
 
-                try:
-                    is_sensitive = status['possibly_sensitive']
-                except KeyError:
-                    is_sensitive = None
+            try:
+                is_sensitive = status['possibly_sensitive']
+            except KeyError:
+                is_sensitive = None
 
-                newEntry.append(is_sensitive)
+            newEntry.append(is_sensitive)
 
-                hashtags = ", ".join([hashtag_item['text'] for hashtag_item in status['entities']['hashtags']])
-                newEntry.append(hashtags)  # append the hashtags
+            hashtags = ", ".join([hashtag_item['text'] for hashtag_item in status['entities']['hashtags']])
+            newEntry.append(hashtags)  # append the hashtags
 
-                #
-                mentions = ", ".join([mention['screen_name'] for mention in status['entities']['user_mentions']])
-                newEntry.append(mentions)  # append the user mentions
+            #
+            mentions = ", ".join([mention['screen_name'] for mention in status['entities']['user_mentions']])
+            newEntry.append(mentions)  # append the user mentions
 
-                try:
-                    xyz = status['place']['bounding_box']['coordinates']
-                    coordinates = [coord for loc in xyz for coord in loc]
-                except TypeError:
-                    coordinates = None
-                newEntry.append(coordinates)
+            try:
+                xyz = status['place']['bounding_box']['coordinates']
+                coordinates = [coord for loc in xyz for coord in loc]
+            except TypeError:
+                coordinates = None
+            newEntry.append(coordinates)
 
-                try:
-                    location = status['user']['location']
-                except TypeError:
-                    location = ''
-                newEntry.append(location)
+            try:
+                location = status['user']['location']
+            except TypeError:
+                location = ''
+            newEntry.append(location)
 
-                # now append a row to the dataframe
-                single_tweet_df = pd.DataFrame([newEntry], columns=self.cols)
-                df = df.append(single_tweet_df, ignore_index=True)
+            # now append a row to the dataframe
+            single_tweet_df = pd.DataFrame([newEntry], columns=self.cols)
+            df = df.append(single_tweet_df, ignore_index=True)
 
         df.to_csv("micTest12.csv", columns=self.cols, index=False, encoding="utf-8")
         return df
@@ -175,11 +177,23 @@ class dataAcq():
 
 if __name__ == "__main__":
 
-    keyword = "airquality"
-    startDate = datetime.datetime(2019, 6, 1, 0, 0, 0)
+    keywords = ["#airquality", "#cleanair", "#airpollution", "#pollution", "#hvac", "#airpurifier", "#indoorairquality",
+                "#climatechange", "#indoorair", "#environment", "#airconditioning", "#coronavirus", "#heating",
+                "#ac", "#airfilter", "#allergies", "#hvacservice", "#ventilation", "#wellness", "#delhipollution",
+                "#airconditioner", "#airqualityindex", "#bhfyp “particulate matter” “fine particulate matter”", "#air",
+                "#pm2_5", "#emissions", "#natureishealing", "#nature", "#pollutionfree", "#wearethevirus", "#freshair",
+                "#safety", "#covid", "#health"]
+    startDate = datetime.datetime(2019, 4, 1, 0, 0, 0)
     endDate = datetime.datetime(2020, 8, 1, 0, 0, 0)
-    geocode = "-1.286389, 36.817223, 40km"
+    geocodes = ["-33.918861,18.423300,40km", "-26.205681,28.046822,40km", "5.550000,-0.020000,40km",
+                "-1.286389,36.817223,40km", "-4.043740,39.658871,40km", "6.465422,3.406448,40km",
+                " -1.935114,30.082111,40km", "0.347596,32.582520,40km"]
+    csvfile = "micTest12.csv"
 
     acquireTweets = dataAcq()
-    df = acquireTweets.getTweets(keyword=keyword, geocode=geocode, startDate=startDate, endDate=endDate)
-    print(df)
+    for keyword in keywords:
+        for geocode in geocodes:
+            df = acquireTweets.getTweets(keyword=keyword, geocode=geocodes, startDate=startDate, endDate=endDate,
+                                         csvfile=csvfile)
+
+    print(df.head())
