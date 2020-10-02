@@ -165,13 +165,14 @@ if __name__ == "__main__":
     acquireTweets = dataAcq()
     frames = []
 
-    now = datetime.datetime.now()
+    datetoday = date.today()
+    today = datetoday.strftime("%Y-%m-%d")
 
     for location in locations:
         df = []
         for hashtag in hashtags:
             tweets = acquireTweets.getTweets(location=location, hashtag=hashtag, startDate="2020-08-01",
-                                             endDate="2020-09-10")
+                                             endDate=today)
             df.append(tweets)
             conc_df = pd.concat(df, ignore_index=True)
             print(conc_df.shape)
