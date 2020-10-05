@@ -88,7 +88,7 @@ class dataAcq():
         df = pd.DataFrame(columns=self.cols)
 
         query = {'fields': [{'items': [hashtag]}],
-                 'near': (location, 40),
+                 'near': (location, 60),
                  'since': startDate,
                  'until': endDate}
 
@@ -144,6 +144,8 @@ class dataAcq():
             single_tweet_df = pd.DataFrame([newEntry], columns=self.cols)
             df = df.append(single_tweet_df, ignore_index=True)
 
+        # df.to_csv(hashtag + '_' + location + '.csv')
+
         return df
 
 if __name__ == "__main__":
@@ -159,6 +161,22 @@ if __name__ == "__main__":
                 '#airqualityindex', '#climatechange', '#airquality', '#globalwarming', '#airpollutionawareness',
                 '#airpollutioncontrol', '#CleanEnergy', '#saveearth', 'Hygroscopicity']
 
+    hashh = ["#BreatheLife", "#AirPollution", "#airquality", "#cleanair", "#airpollution", "#pollution", "#hvac",
+             "#airpurifier", "#indoorairquality", "#air", "#climatechange", "#indoorair", "#environment",
+             "#airconditioning", "#heating", "#freshair", "#airfilter", "#ventilation", "#airconditioner",
+             "#airqualityindex", "#pm2_5 ", "#emissions", "#natureishealing", "#nature", "#pollutionfree",
+             "#wearethevirus", 'pollutant', '#air', '#pollution', '#airpollution', '#coal', '#particles', '#smog',
+             '#airqualityindex', '#climatechange', '#airquality', '#globalwarming', '#airpollutionawareness',
+             '#airpollutioncontrol', '#CleanEnergy', '#saveearth', '#cleanair']
+
+    hash3 = ["#AirPollution", '#stopairpollution', '#NO2Coal', '#EndCoal', '#AQI', '#airqualityindex', "#airquality",
+             "#cleanair", "#airpollutant", "#freshair", "Particulates", "#pm2_5", "#emissions", '#AIRS',
+             '#airpollutionawareness', "#natureishealing", '#airpollutioncontrol', '#airparticles', '#Aerosals',
+             '#smog', "#blueskychallenge", "#emissions", "#hvac", "#WorldCleanAirDay", '#cleanairforall',
+             '#cleanair4all']
+
+    sep7th = ['#cleanairforall', '#cleanair4all', '#worldcleanairday', '#cleanairday']
+
     locations = ["Lagos, Nigeria", "Cape Town, South Africa", "Johannesburg, South Africa", "Accra, Ghana",
                  "Nairobi, Kenya", "Mombasa, Kenya", "Kigali, Rwanda", "Kampala, Uganda"]
 
@@ -170,7 +188,7 @@ if __name__ == "__main__":
 
     for location in locations:
         df = []
-        for hashtag in hashtags:
+        for hashtag in sep7th:
             tweets = acquireTweets.getTweets(location=location, hashtag=hashtag, startDate="2020-08-01",
                                              endDate=today)
             df.append(tweets)
@@ -179,6 +197,7 @@ if __name__ == "__main__":
             frames.append(conc_df)
 
     final_df = pd.concat(frames, ignore_index=True)
-    print(final_df.shape)
 
-    final_df.to_csv('postlockdown.csv', index=False, encoding="utf-8")
+    final_df = final_df.drop_duplicates()
+    print(final_df.shape)
+    final_df.to_csv('cleanAirDay.csv', index=False, encoding="utf-8")
