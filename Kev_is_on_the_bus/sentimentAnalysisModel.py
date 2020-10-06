@@ -155,7 +155,7 @@ def tokenizerTings(dfTrain, dfTest):
     print("Total words", vocab_size)
 
     xTrain = pad_sequences(tokenizer.texts_to_sequences(df.text), maxlen=SEQUENCE_lENGTH)
-    xTest = pad_sequences(tokenizer.texts_to_sequences(dfTest.text, maxlen=SEQUENCE_lENGTH))
+    xTest = pad_sequences(tokenizer.texts_to_sequences(dfTest.text), maxlen=SEQUENCE_lENGTH)
 
     return tokenizer, vocab_size, xTrain, xTest
 
