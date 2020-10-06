@@ -19,7 +19,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 from keras.models import Sequential
-from keras.layers import Activation, Dense, Dropout, Embedding, Flatten, Conv1D, Maxpooling1D, LSTM
+from keras.layers import Activation, Dense, Dropout, Embedding, Flatten, Conv1D, LSTM
 from keras import utlis
 from keras.callbacks import ReduceLROnPlateau, EarlyStopping
 
