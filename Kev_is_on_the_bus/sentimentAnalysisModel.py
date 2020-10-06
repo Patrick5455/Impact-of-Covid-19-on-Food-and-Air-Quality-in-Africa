@@ -20,7 +20,7 @@ from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 from keras.models import Sequential
 from keras.layers import Activation, Dense, Dropout, Embedding, Flatten, Conv1D, LSTM
-from keras import utlis
+from keras import utils
 from keras.callbacks import ReduceLROnPlateau, EarlyStopping
 
 import nltk
