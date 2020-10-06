@@ -200,7 +200,8 @@ def nnModel(embeddingLayer):
 
 if __name__ == "__main__":
 
-    df = pd.read_csv('data/training.1600000.processed.noemoticon.csv')
+    df = pd.read_csv('data/training.1600000.processed.noemoticon.csv',
+                     encoding=DATASET_ENCODING, names=DATASET_COLUMNS)
     df.text = df.text.apply(lambda x: cleanTweets(x))
 
     dfTrain, dfTest = train_test_split(df, test_size=1 - TRAIN_sIZE, random_state=42)
