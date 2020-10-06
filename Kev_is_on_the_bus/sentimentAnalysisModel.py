@@ -172,7 +172,7 @@ def encodeLabels(dfTrain, dfTest):
     return yTrain, yTest
 
 def embeddingManenos(vocabSize):
-    embeddingMatrix = np.zeroes((vocabSize, W2V_SIZE))
+    embeddingMatrix = np.zeros((vocabSize, W2V_SIZE))
     for word, i in tokeniza.word_index.items():
         if word in w2vModel.wv:
             embeddingMatrix[i] = w2vModel.wv[word]
