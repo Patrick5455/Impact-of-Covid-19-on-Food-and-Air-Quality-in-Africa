@@ -1,0 +1,5 @@
+.DS_Store
+.vscode
+api_keys.txt
+data/
+test.py
