@@ -65,10 +65,10 @@ import preprocessor as p
 
 
 #Variables that contains the user credentials to access Twitter API 
-consumer_key = 'JKNh3lOfHZOtkuhDmlJPAB6sy'
-consumer_secret = 'W22BOhcbcDiqe8deTnnZCFIHJu7Zk3HLKoNpAQZXoFink94ujp'
-access_token = '2464951318-BbgDuJQPLWXB9Ad3qyQXIElTZuVseIujax47mLK'
-access_token_secret ='3siNawNyHuyUuM9tCOfWe57yobYWu2arYSkurJ1xwxVk1'
+consumer_key = ''
+consumer_secret = ''
+access_token = ''
+access_token_secret =''
 sleep_on_rate_limit=False
 
 auth = OAuthHandler(consumer_key, consumer_secret)
