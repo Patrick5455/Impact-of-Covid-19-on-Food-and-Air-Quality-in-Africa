@@ -57,7 +57,6 @@ SENTIMENT_THRESHOLDS = (0.4, 0.7)
 KERAS_MODEL = "model.h5"
 WORD2VEC_MODEL = "model.w2v"
 TOKENIZER_MODEL = "tokenizer.pkl"
-ENCODER_MODEL = "encoder.pkl"
 
 decode_map = {0: "NEGATIVE", 2: "NEUTRAL", 4: "POSITIVE"}
 
@@ -164,7 +163,7 @@ def encodeLabels(dfTrain, dfTest):
     encoder.fit(dfTrain.target.tolist())
 
     yTrain = encoder.transform(dfTrain.target.tolist())
-    yTest = encoder.transform(dfTrain.target.tolist())
+    yTest = encoder.transform(dfTest.target.tolist())
 
     yTrain = yTrain.reshape(-1, 1)
     yTest = yTest.reshape(-1, 1)
