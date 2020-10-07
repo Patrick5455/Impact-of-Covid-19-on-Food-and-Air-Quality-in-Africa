@@ -173,9 +173,14 @@ if __name__ == "__main__":
              "#cleanair", "#airpollutant", "#freshair", "Particulates", "#pm2_5", "#emissions", '#AIRS',
              '#airpollutionawareness', "#natureishealing", '#airpollutioncontrol', '#airparticles', '#Aerosals',
              '#smog', "#blueskychallenge", "#emissions", "#hvac", "#WorldCleanAirDay", '#cleanairforall',
-             '#cleanair4all']
+             '#cleanair4all', '#airpollution', '#ClimateAction', '#AfricaAQ', '#cleanAirforall', '#climateaction',
+             '#NatureIsHealing', '#CleanAirJoburg', '#blueskies', '#CleanTheAir', '#FreshAir', '#SolutionToPollution',
+             '#Airpollution', '#StareDownOnPollution', '#CleanAirTshwane', '#airqualitymeasurement', '#CO2emissions',
+             '#CleanAirJ', '#endCoal', '#cleanairjoburg', '#KlaCleanAir', '#CleanAirForAll', '#FreshAIR',
+             '#CleanAirForBlueSkies', '#cleanairday', '#beatairpollution', '#endcoal', '#worldcleanairday']
 
-    sep7th = ['#cleanairforall', '#cleanair4all', '#worldcleanairday', '#cleanairday']
+    sep7th = ['#cleanairforall', '#cleanair4all', '#worldcleanairday', '#cleanairday', '#cleanAirforall',
+              '#cleanAirforall', '#CleanAirForAll']
 
     locations = ["Lagos, Nigeria", "Cape Town, South Africa", "Johannesburg, South Africa", "Accra, Ghana",
                  "Nairobi, Kenya", "Mombasa, Kenya", "Kigali, Rwanda", "Kampala, Uganda"]
@@ -188,7 +193,7 @@ if __name__ == "__main__":
 
     for location in locations:
         df = []
-        for hashtag in sep7th:
+        for hashtag in hash3:
             tweets = acquireTweets.getTweets(location=location, hashtag=hashtag, startDate="2020-08-01",
                                              endDate=today)
             df.append(tweets)
@@ -200,4 +205,4 @@ if __name__ == "__main__":
 
     final_df = final_df.drop_duplicates()
     print(final_df.shape)
-    final_df.to_csv('cleanAirDay.csv', index=False, encoding="utf-8")
+    final_df.to_csv('AfterLDwed7.csv', index=False, encoding="utf-8")
