@@ -32,7 +32,7 @@ startDate = "2020-03-3"
 # for tweet in tweets:
 #     print(tweet.text)
 keywords=['covid','pollution']
-searchCountry=["Kenya"]
+searchCountry=["Kenya","Nigeria"]
 geoCode="-33.918861, 18.423300, 40km "
 
 places = api.geo_search(query=searchCountry, granularity="country")
@@ -54,7 +54,7 @@ def gettweets(keyword):
 
         data.append(tweet_details)
         counter +=1
-        if counter==5:
+        if counter==50:
             break
         else:
             pass
@@ -92,7 +92,7 @@ def join_dfs():
     pollution_df = create_pollution_df()
     frames = [covid_df, pollution_df]
     keyword_df = pd.concat(frames, ignore_index=True)
-    return keyword_df
+    return keyword_df.head(50)
 
 k=join_dfs()
 print(k)   
