@@ -1,2 +1,7 @@
 *env
 *.txt
+*.h5
+*.pkl
+*.w2v
+*.w2v.trainables.syn1neg.npy
+*.w2v.wv.vectors.npy
