@@ -37,6 +37,7 @@ def predictText(text, model, tokeniza, includeNeutral=True, label=True):
 if __name__ == "__main__":
 
     df = pd.read_csv('totalDatanew_users_detail.csv')
+    df = df.loc[df.clean_text.apply(lambda x: not isinstance(x, (float, int)))]
 
     model = load_model(KERAS_MODEL)
 
