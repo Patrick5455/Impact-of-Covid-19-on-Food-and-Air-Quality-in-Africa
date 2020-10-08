@@ -36,7 +36,7 @@ def predictText(text, model, tokeniza, includeNeutral=True, label=True):
 
 if __name__ == "__main__":
 
-    df = pd.read_csv('totalDatanew_users_detail.csv')
+    df = pd.read_csv('latestTotal.csv')
     df = df.loc[df.clean_text.apply(lambda x: not isinstance(x, (float, int)))]
 
     model = load_model(KERAS_MODEL)
@@ -48,4 +48,4 @@ if __name__ == "__main__":
     df['sentimentScore'] = df.clean_text.apply(lambda x: predictText(x, model, tokeniza, label=False))
 
     print(df.head(5))
-    df.to_csv("SentimentTotalUsers.csv")
+    df.to_csv("SentimentLatestTotal.csv")
