@@ -172,15 +172,13 @@ if __name__ == "__main__":
     hash3 = ["#AirPollution", '#stopairpollution', '#NO2Coal', '#EndCoal', '#AQI', '#airqualityindex', "#airquality",
              "#cleanair", "#airpollutant", "#freshair", "Particulates", "#pm2_5", "#emissions", '#AIRS',
              '#airpollutionawareness', "#natureishealing", '#airpollutioncontrol', '#airparticles', '#Aerosals',
-             '#smog', "#blueskychallenge", "#emissions", "#hvac", "#WorldCleanAirDay", '#cleanairforall',
-             '#cleanair4all', '#airpollution', '#ClimateAction', '#AfricaAQ', '#cleanAirforall', '#climateaction',
-             '#NatureIsHealing', '#CleanAirJoburg', '#blueskies', '#CleanTheAir', '#FreshAir', '#SolutionToPollution',
-             '#Airpollution', '#StareDownOnPollution', '#CleanAirTshwane', '#airqualitymeasurement', '#CO2emissions',
-             '#CleanAirJ', '#endCoal', '#cleanairjoburg', '#KlaCleanAir', '#CleanAirForAll', '#FreshAIR',
-             '#CleanAirForBlueSkies', '#cleanairday', '#beatairpollution', '#endcoal', '#worldcleanairday']
+             '#smog', "#blueskychallenge", "#hvac", "#WorldCleanAirDay", '#cleanairforall',
+             '#cleanair4all', '#ClimateAction', '#AfricaAQ', '#CleanAirJoburg', '#blueskies', '#CleanTheAir',
+             '#SolutionToPollution', '#StareDownOnPollution', '#CleanAirTshwane', '#airqualitymeasurement',
+             '#CO2emissions', '#CleanAirJ', '#cleanairjoburg', '#KlaCleanAir', '#FreshAIR', '#CleanAirForBlueSkies',
+             '#cleanairday', '#beatairpollution']
 
-    sep7th = ['#cleanairforall', '#cleanair4all', '#worldcleanairday', '#cleanairday', '#cleanAirforall',
-              '#cleanAirforall', '#CleanAirForAll']
+    sep7th = ['#cleanairforall', '#cleanair4all', '#worldcleanairday', '#cleanairday']
 
     locations = ["Lagos, Nigeria", "Cape Town, South Africa", "Johannesburg, South Africa", "Accra, Ghana",
                  "Nairobi, Kenya", "Mombasa, Kenya", "Kigali, Rwanda", "Kampala, Uganda"]
