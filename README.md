@@ -10,3 +10,6 @@ The single data source that the client is interested in for this case is sentime
 
 ## Challenge Document
 The challenge document can be found [here](https://docs.google.com/document/d/1THRBdpdnS1EkcBtIuOMUH67lF3nfLgJaKOYIevVcJbU/edit?usp=sharing)
+
+## Tableau Visualization
+The visualization for this project were done using Tableau and can be found [here](https://public.tableau.com/profile/stephany.wanjiru#!/vizhome/Impact_of_covid_tableau_dashboard/ImpactOfCoronaOnairquality?publish=yes)
